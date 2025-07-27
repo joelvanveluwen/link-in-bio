@@ -5,8 +5,9 @@ import './globals.css'
 const jost = Jost({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700'] })
 
 export const metadata: Metadata = {
-  title: 'Link in Bio',
-  description: 'A minimal link in bio page',
+  title: 'Joel Van Veluwen - Link in Bio',
+  description: 'Data Leader building AI agents to wrangle metrics into decisions',
+  metadataBase: new URL('https://vanveluwen.dev'),
 }
 
 export const viewport: Viewport = {
