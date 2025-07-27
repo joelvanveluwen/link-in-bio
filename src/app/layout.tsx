@@ -1,0 +1,29 @@
+import type { Metadata, Viewport } from 'next'
+import { Jost } from 'next/font/google'
+import './globals.css'
+
+const jost = Jost({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700'] })
+
+export const metadata: Metadata = {
+  title: 'Link in Bio',
+  description: 'A minimal link in bio page',
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en">
+      <body className={jost.className}>
+        {children}
+      </body>
+    </html>
+  )
+}
