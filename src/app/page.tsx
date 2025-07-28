@@ -94,7 +94,7 @@ export default function HomePage() {
   const socialIconStyle = {
     width: "32px",
     height: "32px",
-    margin: "0 16px",
+    margin: "0 4px",
     transition: "all 0.3s ease",
     filter:
       "brightness(0) saturate(100%) invert(27%) sepia(13%) saturate(610%) hue-rotate(169deg) brightness(95%) contrast(89%)",
@@ -168,7 +168,7 @@ export default function HomePage() {
             href="https://www.instagram.com/vanveluwen/"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ display: "inline-block", margin: "0 16px" }}
+            style={{ display: "inline-block", margin: "0 4px" }}
             onMouseEnter={(e) => {
               const img = e.currentTarget.querySelector("img");
               if (img) {
@@ -200,7 +200,7 @@ export default function HomePage() {
             href="https://www.linkedin.com/in/joelvanveluwen/"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ display: "inline-block", margin: "0 16px" }}
+            style={{ display: "inline-block", margin: "0 4px" }}
             onMouseEnter={(e) => {
               const img = e.currentTarget.querySelector("img");
               if (img) {
@@ -232,7 +232,7 @@ export default function HomePage() {
             href="https://github.com/joelvanveluwen"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ display: "inline-block", margin: "0 16px" }}
+            style={{ display: "inline-block", margin: "0 4px" }}
             onMouseEnter={(e) => {
               const img = e.currentTarget.querySelector("img");
               if (img) {
@@ -282,8 +282,8 @@ export default function HomePage() {
               <a
                 key={index}
                 href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
+                target={link.url.startsWith('http') ? "_blank" : "_self"}
+                rel={link.url.startsWith('http') ? "noopener noreferrer" : undefined}
                 style={{...buttonStyle, textTransform: "uppercase"}}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor =
@@ -326,8 +326,8 @@ export default function HomePage() {
               <a
                 key={index}
                 href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
+                target={link.url.startsWith('http') ? "_blank" : "_self"}
+                rel={link.url.startsWith('http') ? "noopener noreferrer" : undefined}
                 style={{...buttonStyle, textTransform: "uppercase"}}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor =
@@ -370,8 +370,8 @@ export default function HomePage() {
               <a
                 key={index}
                 href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
+                target={link.url.startsWith('http') ? "_blank" : "_self"}
+                rel={link.url.startsWith('http') ? "noopener noreferrer" : undefined}
                 style={{...buttonStyle, textTransform: "uppercase"}}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor =
