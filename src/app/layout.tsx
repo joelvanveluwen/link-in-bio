@@ -1,12 +1,9 @@
 import type { Metadata, Viewport } from 'next'
-import { Jost } from 'next/font/google'
 import './globals.css'
-
-const jost = Jost({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700'] })
 
 export const metadata: Metadata = {
   title: 'Joel Van Veluwen - Link in Bio',
-  description: 'Data Leader building AI agents to wrangle metrics into decisions',
+  description: 'Building Hurdle to help sales people make better decisions with data',
   metadataBase: new URL('https://vanveluwen.dev'),
 }
 
@@ -22,9 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={jost.className}>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   )
 }

@@ -1,417 +1,187 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import linkedinIcon from "@/assets/linkedin.png";
+import Image, { type StaticImageData } from "next/image";
 import githubIcon from "@/assets/github.png";
 import instagramIcon from "@/assets/instagram.png";
+import linkedinIcon from "@/assets/linkedin.png";
 import headshotImage from "@/assets/joel-headshot-cuphead.png";
 
-export default function HomePage() {
-  const [gradientPosition, setGradientPosition] = useState(0);
+type TextLink = {
+  title: string;
+  url: string;
+  note?: string;
+  icon?: StaticImageData | "x";
+};
 
-  // Slow, fluid gradient animation
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setGradientPosition((prev) => (prev + 0.5) % 360);
-    }, 200);
-    return () => clearInterval(interval);
-  }, []);
+const socialLinks: TextLink[] = [
+  {
+    title: "Instagram",
+    url: "https://www.instagram.com/vanveluwen/",
+    icon: instagramIcon,
+  },
+  {
+    title: "LinkedIn",
+    url: "https://www.linkedin.com/in/joelvanveluwen/",
+    icon: linkedinIcon,
+  },
+  {
+    title: "X",
+    url: "https://x.com/vanveluwen",
+    icon: "x",
+  },
+];
 
-  const workLinks = [
-    {
-      title: "Linkedin Profile",
-      url: "https://www.linkedin.com/in/joelvanveluwen/",
-    },
-    { title: "GitHub Profile", url: "https://github.com/joelvanveluwen" },
-    { title: "Email", url: "mailto:joel.vanveluwen@gmail.com" },
-  ];
+const workLinks: TextLink[] = [
+  {
+    title: "Hurdle",
+    note: "Know what to do next",
+    url: "https://www.hurdle.ai/",
+  },
+  {
+    title: "LinkedIn",
+    note: "Profile",
+    url: "https://www.linkedin.com/in/joelvanveluwen/",
+  },
+  {
+    title: "Talk stuff",
+    note: "joel.vanveluwen@gmail.com",
+    url: "mailto:joel.vanveluwen@gmail.com",
+  },
+  {
+    title: "Talk AI and Sales",
+    note: "joel@hurdle.ai",
+    url: "mailto:joel@hurdle.ai",
+  },
+  {
+    title: "GitHub personal",
+    note: "github.com/vanveluwen",
+    url: "https://github.com/vanveluwen",
+    icon: githubIcon,
+  },
+  {
+    title: "GitHub work",
+    note: "github.com/joelvanveluwen",
+    url: "https://github.com/joelvanveluwen",
+    icon: githubIcon,
+  },
+];
 
-  const creativeLinks = [
-    {
-      title: "Drone Photography",
-      url: "https://www.instagram.com/vanveluwen/",
-    },
-    { title: "Print Store", url: "/print-store" },
-  ];
+const otherLinks: TextLink[] = [
+  {
+    title: "Drone Photography",
+    note: "Ooo pretty photos from the sky",
+    url: "https://www.instagram.com/vanveluwen/",
+  },
+  {
+    title: "TLDR Data Newsletter",
+    note: "Editor",
+    url: "https://tldr.tech/data",
+  },
+];
 
-  const otherLinks = [
-    {
-      title: "Editor for TLDR Data Newsletter, sign up here",
-      url: "https://tldr.tech/data",
-    },
-    { title: "Microblog", url: "/microblog" },
-  ];
+function externalTarget(url: string) {
+  return url.startsWith("http") ? "_blank" : undefined;
+}
 
-  const cardStyle = {
-    backgroundColor: "rgba(255, 255, 255, 0.15)",
-    backdropFilter: "blur(10px)",
-    borderRadius: "24px",
-    border: "1px solid rgba(255, 255, 255, 0.2)",
-    padding: "32px",
-    boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
-    width: "100%",
-    maxWidth: "400px",
-    marginBottom: "32px",
-  };
+function externalRel(url: string) {
+  return url.startsWith("http") ? "noopener noreferrer" : undefined;
+}
 
-  const buttonStyle = {
-    display: "block",
-    width: "100%",
-    padding: "16px 24px",
-    backgroundColor: "rgba(255, 255, 255, 0.9)",
-    borderRadius: "16px",
-    border: "1px solid rgba(255, 255, 255, 0.3)",
-    textAlign: "center" as const,
-    color: "#1f2937",
-    fontWeight: "300",
-    textDecoration: "none",
-    marginBottom: "12px",
-    transition: "all 0.3s ease",
-    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-  };
+function Icon({ icon, title }: Pick<TextLink, "icon" | "title">) {
+  if (!icon) {
+    return null;
+  }
 
-  const profileImageStyle = {
-    width: "96px",
-    height: "96px",
-    borderRadius: "50%",
-    marginBottom: "24px",
-    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.1)",
-    objectFit: "cover" as const,
-  };
-
-  const containerStyle = {
-    minHeight: "100vh",
-    width: "100%",
-    display: "flex",
-    flexDirection: "column" as const,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "24px",
-    background: `linear-gradient(${gradientPosition}deg, #3b82f6, #60a5fa, #93c5fd, #ffffff)`,
-  };
-
-  const socialIconStyle = {
-    width: "32px",
-    height: "32px",
-    margin: "0 4px",
-    transition: "all 0.3s ease",
-    filter:
-      "brightness(0) saturate(100%) invert(27%) sepia(13%) saturate(610%) hue-rotate(169deg) brightness(95%) contrast(89%)",
-    opacity: 0.8,
-  };
-
-  const footerStyle = {
-    color: 'rgba(255, 255, 255, 0.9)',
-    fontSize: '14px',
-    textAlign: 'center' as const,
-    fontFamily: '"Bitcount Prop Single", system-ui',
-  };
-
-  const footerLinkStyle = {
-    color: "rgba(255, 255, 255, 0.95)",
-    textDecoration: "underline",
-  };
+  if (icon === "x") {
+    return (
+      <span className="social-mark" aria-hidden="true">
+        X
+      </span>
+    );
+  }
 
   return (
-  <div style={containerStyle}>
-      {/* Main Card */}
-      <div style={cardStyle}>
-        {/* Profile Image */}
-        <div style={{ display: "flex", justifyContent: "center" }}>
+    <Image
+      className="link-icon"
+      src={icon}
+      alt=""
+      width={18}
+      height={18}
+      aria-hidden="true"
+    />
+  );
+}
+
+function LinkRow({ link }: { link: TextLink }) {
+  return (
+    <a
+      className="link-row"
+      href={link.url}
+      target={externalTarget(link.url)}
+      rel={externalRel(link.url)}
+    >
+      <span className="link-title">
+        <Icon icon={link.icon} title={link.title} />
+        <strong>{link.title}</strong>
+      </span>
+      {link.note ? <span className="link-note">{link.note}</span> : null}
+    </a>
+  );
+}
+
+function Section({ title, links }: { title: string; links: TextLink[] }) {
+  return (
+    <section className="link-section" aria-labelledby={`${title}-heading`}>
+      <h2 id={`${title}-heading`}>{title}</h2>
+      <div className="link-stack">
+        {links.map((link) => (
+          <LinkRow key={`${title}-${link.title}`} link={link} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export default function HomePage() {
+  return (
+    <main className="page-shell">
+      <aside className="bio-column" aria-label="Joel Van Veluwen links">
+        <header className="intro">
           <Image
+            className="avatar"
             src={headshotImage}
             alt="Joel Van Veluwen"
-            width={96}
-            height={96}
-            style={profileImageStyle}
+            width={72}
+            height={72}
+            priority
           />
-        </div>
-
-        {/* Name */}
-        <h1
-          style={{
-            fontSize: "36px",
-            fontWeight: "400",
-            color: "#111827",
-            textAlign: "center",
-            marginBottom: "16px",
-            textTransform: "uppercase",
-          }}
-        >
-          Joel Van Veluwen
-        </h1>
-
-        {/* Bio */}
-        <p
-          style={{
-            color: "#374151",
-            textAlign: "center",
-            fontSize: "18px",
-            marginBottom: "32px",
-            lineHeight: "1.6",
-            fontWeight: "300",
-          }}
-        >
-          Data Leader building AI agents to wrangle metrics into decisions.
-        </p>
-
-        {/* Social Icons */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginBottom: "40px",
-          }}
-        >
-          <a
-            href="https://www.instagram.com/vanveluwen/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ display: "inline-block", margin: "0 4px" }}
-            onMouseEnter={(e) => {
-              const img = e.currentTarget.querySelector("img");
-              if (img) {
-                img.style.transform = "scale(1.2)";
-                img.style.filter =
-                  "brightness(0) saturate(100%) invert(41%) sepia(96%) saturate(1347%) hue-rotate(201deg) brightness(97%) contrast(86%)";
-                img.style.opacity = "1";
-              }
-            }}
-            onMouseLeave={(e) => {
-              const img = e.currentTarget.querySelector("img");
-              if (img) {
-                img.style.transform = "scale(1)";
-                img.style.filter =
-                  "brightness(0) saturate(100%) invert(27%) sepia(13%) saturate(610%) hue-rotate(169deg) brightness(95%) contrast(89%)";
-                img.style.opacity = "0.8";
-              }
-            }}
-          >
-            <Image
-              src={instagramIcon}
-              alt="Instagram"
-              width={32}
-              height={32}
-              style={socialIconStyle}
-            />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/joelvanveluwen/"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ display: "inline-block", margin: "0 4px" }}
-            onMouseEnter={(e) => {
-              const img = e.currentTarget.querySelector("img");
-              if (img) {
-                img.style.transform = "scale(1.2)";
-                img.style.filter =
-                  "brightness(0) saturate(100%) invert(41%) sepia(96%) saturate(1347%) hue-rotate(201deg) brightness(97%) contrast(86%)";
-                img.style.opacity = "1";
-              }
-            }}
-            onMouseLeave={(e) => {
-              const img = e.currentTarget.querySelector("img");
-              if (img) {
-                img.style.transform = "scale(1)";
-                img.style.filter =
-                  "brightness(0) saturate(100%) invert(27%) sepia(13%) saturate(610%) hue-rotate(169deg) brightness(95%) contrast(89%)";
-                img.style.opacity = "0.8";
-              }
-            }}
-          >
-            <Image
-              src={linkedinIcon}
-              alt="LinkedIn"
-              width={32}
-              height={32}
-              style={socialIconStyle}
-            />
-          </a>
-          <a
-            href="https://github.com/joelvanveluwen"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ display: "inline-block", margin: "0 4px" }}
-            onMouseEnter={(e) => {
-              const img = e.currentTarget.querySelector("img");
-              if (img) {
-                img.style.transform = "scale(1.2)";
-                img.style.filter =
-                  "brightness(0) saturate(100%) invert(41%) sepia(96%) saturate(1347%) hue-rotate(201deg) brightness(97%) contrast(86%)";
-                img.style.opacity = "1";
-              }
-            }}
-            onMouseLeave={(e) => {
-              const img = e.currentTarget.querySelector("img");
-              if (img) {
-                img.style.transform = "scale(1)";
-                img.style.filter =
-                  "brightness(0) saturate(100%) invert(27%) sepia(13%) saturate(610%) hue-rotate(169deg) brightness(95%) contrast(89%)";
-                img.style.opacity = "0.8";
-              }
-            }}
-          >
-            <Image
-              src={githubIcon}
-              alt="GitHub"
-              width={32}
-              height={32}
-              style={socialIconStyle}
-            />
-          </a>
-        </div>
-
-        {/* Work Section */}
-        <div style={{ marginBottom: "32px" }}>
-          <h2
-            style={{
-              fontSize: "20px",
-              fontWeight: "400",
-              color: "#111827",
-              textAlign: "center",
-              marginBottom: "24px",
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-            }}
-          >
-            Work
-          </h2>
-          <div>
-            {workLinks.map((link, index) => (
+          <h1 className="name">
+            Joel <strong>Van Veluwen</strong>
+          </h1>
+          <p className="headline">
+            Building <strong>Hurdle</strong> to help sales people make better
+            decisions with data
+          </p>
+          <nav className="socials" aria-label="Social links">
+            {socialLinks.map((link) => (
               <a
-                key={index}
+                key={link.title}
                 href={link.url}
-                target={link.url.startsWith('http') ? "_blank" : "_self"}
-                rel={link.url.startsWith('http') ? "noopener noreferrer" : undefined}
-                style={{...buttonStyle, textTransform: "uppercase"}}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor =
-                    "rgba(255, 255, 255, 1)";
-                  e.currentTarget.style.transform = "scale(1.02)";
-                  e.currentTarget.style.boxShadow =
-                    "0 4px 16px rgba(0, 0, 0, 0.15)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor =
-                    "rgba(255, 255, 255, 0.9)";
-                  e.currentTarget.style.transform = "scale(1)";
-                  e.currentTarget.style.boxShadow =
-                    "0 2px 8px rgba(0, 0, 0, 0.1)";
-                }}
+                target={externalTarget(link.url)}
+                rel={externalRel(link.url)}
+                aria-label={link.title}
               >
-                {link.title}
+                <Icon icon={link.icon} title={link.title} />
               </a>
             ))}
-          </div>
-        </div>
+          </nav>
+        </header>
 
-        {/* Creative Section */}
-        <div style={{ marginBottom: "32px" }}>
-          <h2
-            style={{
-              fontSize: "20px",
-              fontWeight: "400",
-              color: "#111827",
-              textAlign: "center",
-              marginBottom: "24px",
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-            }}
-          >
-            Creative
-          </h2>
-          <div>
-            {creativeLinks.map((link, index) => (
-              <a
-                key={index}
-                href={link.url}
-                target={link.url.startsWith('http') ? "_blank" : "_self"}
-                rel={link.url.startsWith('http') ? "noopener noreferrer" : undefined}
-                style={{...buttonStyle, textTransform: "uppercase"}}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor =
-                    "rgba(255, 255, 255, 1)";
-                  e.currentTarget.style.transform = "scale(1.02)";
-                  e.currentTarget.style.boxShadow =
-                    "0 4px 16px rgba(0, 0, 0, 0.15)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor =
-                    "rgba(255, 255, 255, 0.9)";
-                  e.currentTarget.style.transform = "scale(1)";
-                  e.currentTarget.style.boxShadow =
-                    "0 2px 8px rgba(0, 0, 0, 0.1)";
-                }}
-              >
-                {link.title}
-              </a>
-            ))}
-          </div>
-        </div>
+        <Section title="Work" links={workLinks} />
+        <Section title="Other" links={otherLinks} />
 
-        {/* Other Section */}
-        <div>
-          <h2
-            style={{
-              fontSize: "20px",
-              fontWeight: "400",
-              color: "#111827",
-              textAlign: "center",
-              marginBottom: "24px",
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-            }}
-          >
-            Other
-          </h2>
-          <div>
-            {otherLinks.map((link, index) => (
-              <a
-                key={index}
-                href={link.url}
-                target={link.url.startsWith('http') ? "_blank" : "_self"}
-                rel={link.url.startsWith('http') ? "noopener noreferrer" : undefined}
-                style={{...buttonStyle, textTransform: "uppercase"}}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor =
-                    "rgba(255, 255, 255, 1)";
-                  e.currentTarget.style.transform = "scale(1.02)";
-                  e.currentTarget.style.boxShadow =
-                    "0 4px 16px rgba(0, 0, 0, 0.15)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor =
-                    "rgba(255, 255, 255, 0.9)";
-                  e.currentTarget.style.transform = "scale(1)";
-                  e.currentTarget.style.boxShadow =
-                    "0 2px 8px rgba(0, 0, 0, 0.1)";
-                }}
-              >
-                {link.title}
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <div style={footerStyle}>
-        <p style={{ 
-          fontFamily: '"Bitcount Prop Single", system-ui',
-          fontWeight: '400',
-        }}>
-          🛠️ by Joel, helped by Robots, to the tunes of{" "}
-          <a
-            href="https://open.spotify.com/playlist/3NNewboKoq32me4F27biPi?si=ab474ed191344f44"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={footerLinkStyle}
-          >
-            Civil War Ext
-          </a>
-        </p>
-      </div>
-    </div>
+        <footer>
+          by Joel, helped by Robots
+        </footer>
+      </aside>
+    </main>
   );
 }
