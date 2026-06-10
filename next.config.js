@@ -2,6 +2,7 @@
 const nextConfig = {
   devIndicators: false,
   turbopack: {
+    root: __dirname,
     rules: {
       '*.svg': {
         loaders: ['@svgr/webpack'],
